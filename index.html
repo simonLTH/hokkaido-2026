@@ -13,119 +13,138 @@
             --highlight: #e67e22;
             --yakiniku: #c0392b;
             --ski-green: #2ecc71;
+            --flight-purple: #9b59b6;
+            --weather-blue: #004a99;
         }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); margin: 0; padding: 15px; color: #333; line-height: 1.6; }
-        .header { background: var(--primary); color: white; padding: 30px 20px; border-radius: 15px; text-align: center; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .section-title { font-size: 1.25rem; font-weight: bold; margin-bottom: 15px; color: var(--primary); display: flex; align-items: center; gap: 8px; border-bottom: 2px solid #eee; padding-bottom: 5px; }
+        
+        .header { background: var(--primary); color: white; padding: 25px 20px; border-radius: 15px; text-align: center; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        
+        /* 導覽大方框 */
+        .nav-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
+        .nav-item { 
+            background: var(--white); padding: 15px; border-radius: 12px; text-align: center; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s;
+            border-bottom: 4px solid #eee; font-weight: bold; font-size: 0.9rem;
+        }
+        .nav-item:active { transform: scale(0.95); }
+        .nav-item.active { border-bottom-color: var(--accent); background: #eef7ff; }
+
+        /* 內容區塊控制 */
+        .content-section { display: none; animation: fadeIn 0.4s ease; }
+        .content-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
         .card { background: var(--white); border-radius: 12px; padding: 20px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-left: 6px solid var(--accent); }
-        .flight-card { border-left-color: #9b59b6; }
-        .ski-card { border-left-color: var(--ski-green); }
-        .food-card { border-left-color: var(--yakiniku); }
-        .important { color: var(--highlight); font-weight: bold; font-size: 1.1em; }
+        .section-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 15px; color: var(--primary); display: flex; align-items: center; gap: 8px; border-bottom: 2px solid #eee; padding-bottom: 5px; }
+        
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .tag { font-size: 0.75rem; background: #eee; padding: 3px 10px; border-radius: 20px; display: inline-block; margin-bottom: 5px; font-weight: bold; }
+        .important { color: var(--highlight); font-weight: bold; }
         .time-label { font-weight: bold; color: var(--accent); width: 75px; display: inline-block; }
-        .food-list { padding-left: 20px; margin: 0; font-size: 0.95em; }
-        .food-list li { margin-bottom: 8px; }
-        .tabelog-score { background: #ff9900; color: white; padding: 1px 5px; border-radius: 4px; font-size: 0.75rem; margin-left: 5px; font-weight: bold; }
-        .map-btn { display: inline-block; margin-top: 10px; background: #3498db; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-size: 0.9em; font-weight: bold; }
-        .footer { text-align: center; font-size: 0.85rem; color: #7f8c8d; padding: 30px; }
-        hr { border: 0; border-top: 1px solid #eee; margin: 15px 0; }
+        
+        /* 按鈕樣式 */
+        .btn { display: block; text-align: center; margin-top: 10px; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: 0.2s; }
+        .btn-blue { background: var(--accent); color: white; }
+        .btn-weather { background: var(--weather-blue); color: white; }
+        .btn-jartic { background: #333; color: #f1c40f; }
+        .btn:hover { opacity: 0.9; }
+
+        /* 美食清單 */
+        .food-list { padding-left: 0; list-style: none; }
+        .food-list li { margin-bottom: 10px; padding: 8px; border-radius: 5px; background: #fdfdfd; border: 1px solid #eee; }
+        .food-list a { color: var(--primary); text-decoration: none; font-weight: 500; display: block; }
+        .tabelog-score { background: #ff9900; color: white; padding: 1px 5px; border-radius: 4px; font-size: 0.75rem; float: right; }
+        
+        .footer { text-align: center; font-size: 0.8rem; color: #7f8c8d; padding: 30px; }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <h1>⛷️ 2026 北海道滑雪之旅</h1>
+    <h1>⛷️ 2026 北海道行程</h1>
     <p>3/17 - 3/22 | 札幌手稻滑雪團</p>
 </div>
 
-<div class="card flight-card">
-    <div class="section-title">✈️ 航班資訊</div>
-    <div class="grid">
-        <div>
-            <span class="tag" style="background:#9b59b6; color:white;">組別 A (虎航)</span><br>
-            去程: <b>IT260</b> (3/17)<br>
-            回程: <b>IT261</b> (3/21)
-        </div>
-        <div>
-            <span class="tag" style="background:#27ae60; color:white;">組別 B (長榮)</span><br>
-            去程: <b>BR166</b> (3/17)<br>
-            回程: <b>BR165</b> (3/22)
-        </div>
+<div class="nav-grid">
+    <div class="nav-item active" onclick="showSection('weather')">🌦️ 天氣/路況</div>
+    <div class="nav-item" onclick="showSection('ski')">❄️ 滑雪資訊</div>
+    <div class="nav-item" onclick="showSection('car')">🚗 租車/住宿</div>
+    <div class="nav-item" onclick="showSection('flight')">✈️ 航班/美食</div>
+</div>
+
+<div id="weather" class="content-section active">
+    <div class="card" style="border-left-color: var(--weather-blue);">
+        <div class="section-title">🌦️ Weathernews 即時預報</div>
+        <p>確認札幌市區及手稻滑雪場的天氣與風速：</p>
+        <a href="https://weathernews.jp/onebox/tenki/hokkaido/01100/" target="_blank" class="btn btn-weather">📍 札幌市區天氣</a>
+        <a href="https://weathernews.jp/ski/spot/31005/" target="_blank" class="btn btn-weather" style="background:#0066cc;">⛷️ 札幌手稻滑雪場預報</a>
+    </div>
+
+    <div class="card" style="border-left-color: #333;">
+        <div class="section-title">🚦 JARTIC 日本道路交通情報</div>
+        <p>租車自駕必看！即時確認北海道高速公路與一般道路有無封閉或塞車：</p>
+        <a href="https://www.jartic.or.jp/map/" target="_blank" class="btn btn-jartic">🚨 開啟 JARTIC 即時地圖 (北海道)</a>
     </div>
 </div>
 
-<div class="card">
-    <div class="section-title">🚗 Times 租車資訊</div>
-    <p><span class="time-label">預約編號:</span> <span class="important">202600487789</span></p>
-    <p><span class="time-label">取/還車:</span> 新千歲機場店鋪</p>
-    <p>✅ 4WD + 雪胎 | ✅ Safety Package 保險</p>
-    <a href="https://www.google.com/maps/search/?api=1&query=Times+Car+Rental+New+Chitose+Airport" target="_blank" class="map-btn">📍 導航至取車店</a>
+<div id="ski" class="content-section">
+    <div class="card" style="border-left-color: var(--ski-green);">
+        <div class="section-title">❄️ 滑雪專區</div>
+        <p><b>🎿 雪具租借：INFINITY CITY</b></p>
+        <p><span class="time-label">領取:</span> <span class="important">3/17 17:00</span></p>
+        <p><span class="time-label">歸還:</span> 3/20 17:00</p>
+        <hr style="border:0; border-top:1px solid #eee; margin:15px 0;">
+        <p><b>⛷️ 滑雪教學：札幌手稻 (JWA)</b></p>
+        <p><span class="time-label">日期:</span> 3/18 - 3/20 (3日)</p>
+        <p><span class="time-label">時間:</span> 09:00 - 15:00</p>
+        <a href="https://www.google.com/maps/search/?api=1&query=Sapporo+Teine" target="_blank" class="btn btn-blue" style="background:var(--ski-green);">📍 導航至雪場</a>
+    </div>
 </div>
 
-<div class="card">
-    <div class="section-title">🏨 住宿資訊</div>
-    <p><b>札幌花園皇宮酒店 (含早餐)</b></p>
-    <p><span class="time-label">入住:</span> 3/17 15:00 開始</p>
-    <p><span class="time-label">退房:</span> 3/21 11:00 前</p>
-    <a href="https://www.google.com/maps/search/?api=1&query=Sapporo+Garden+Palace" target="_blank" class="map-btn">📍 前往飯店</a>
+<div id="car" class="content-section">
+    <div class="card">
+        <div class="section-title">🚗 Times 租車資訊</div>
+        <p><span class="time-label">編號:</span> <span class="important">202600487789</span></p>
+        <p><span class="time-label">取車:</span> 新千歲機場店鋪 (4WD+雪胎)</p>
+        <a href="https://www.google.com/maps/search/?api=1&query=Times+Car+Rental+New+Chitose+Airport" target="_blank" class="btn btn-blue">📍 導航至取車店</a>
+    </div>
+    <div class="card" style="border-left-color: #e67e22;">
+        <div class="section-title">🏨 住宿資訊</div>
+        <p><b>札幌花園皇宮酒店 (含早餐)</b></p>
+        <p><span class="time-label">入住:</span> 3/17 | <span class="time-label">退房:</span> 3/21</p>
+        <a href="https://www.google.com/maps/search/?api=1&query=Sapporo+Garden+Palace+Hotel" target="_blank" class="btn btn-blue" style="background:#e67e22;">📍 前往飯店地圖</a>
+    </div>
 </div>
 
-<div class="card ski-card">
-    <div class="section-title">❄️ 滑雪專區</div>
-    <p><b>🎿 雪具租借：INFINITY CITY</b></p>
-    <p><span class="time-label">領取:</span> <span class="important">3/17 17:00</span> (租借3天)</p>
-    <p><span class="time-label">歸還:</span> 3/20 17:00</p>
-    <p><small>※ 全套豪華雪服及雪具套餐</small></p>
-    <hr>
-    <p><b>⛷️ 滑雪教學：札幌手稻 (JWA)</b></p>
-    <p><span class="time-label">日期:</span> 3/18 - 3/20 (共3日)</p>
-    <p><span class="time-label">時間:</span> 09:00 - 15:00</p>
-    <p><span class="time-label">教練:</span> 待 3/17 晚上提供資訊</p>
-    <a href="https://www.google.com/maps/search/?api=1&query=Sapporo+Teine+Ski+Resort" target="_blank" class="map-btn">📍 導航至雪場</a>
-</div>
-
-<div class="card food-card">
-    <div class="section-title">🍴 札幌美食 20 選 (Tabelog 推薦)</div>
-    
-    <p><span class="tag" style="background:var(--yakiniku); color:white;">🐑 成吉思汗烤羊肉</span></p>
-    <ul class="food-list">
-        <li>だるま 本店 (Daruma) <span class="tabelog-score">★ 3.74</span></li>
-        <li>だるま 5.5店 - 營業至深夜</li>
-        <li>札幌成吉思汗 しろくま (Shirokuma) <span class="tabelog-score">★ 3.7+</span></li>
-        <li>旭川成吉思汗 大黑屋 - 肉厚鮮嫩</li>
-        <li>生ラムジンギスカン 山小屋 - 氛圍佳</li>
-        <li>夜空のジンギスカン - 景觀首選</li>
-        <li>松尾成吉思汗 - 醃漬風味</li>
-        <li>成吉思汗 義經 - CP 值高</li>
-    </ul>
-
-    <p><span class="tag" style="background:#d35400; color:white;">🥩 精品燒肉</span></p>
-    <ul class="food-list">
-        <li>グルマンズいとう (Gurumans Ito) <span class="tabelog-score">★ 3.8+</span></li>
-        <li>燒肉 北牛 (Kitaushi) - 高規和牛</li>
-        <li>炭火燒肉 Razan - 炭香味十足</li>
-        <li>燒肉 世界 - 高CP單點肉品</li>
-        <li>味覺園 - 熟成肉專家</li>
-        <li>Steak & Wine Ishizaki - 頂級鐵板燒</li>
-    </ul>
-
-    <p><span class="tag" style="background:#f1c40f; color:black;">🍛 湯咖哩 / 海鮮 / 其他</span></p>
-    <ul class="food-list">
-        <li>湯咖哩 GARAKU <span class="tabelog-score">★ 3.7+</span></li>
-        <li>Suage+ - 必點炸雞腿湯底</li>
-        <li>奧芝商店 - 鮮蝦湯底首選</li>
-        <li>根室花丸 - 人氣迴轉壽司</li>
-        <li>二條市場 大磯 - 海鮮丼</li>
-        <li>串鳥 - 北海道知名燒鳥</li>
-    </ul>
+<div id="flight" class="content-section">
+    <div class="card" style="border-left-color: var(--flight-purple);">
+        <div class="section-title">✈️ 航班資訊</div>
+        <p><span class="tag">虎航 IT260/261</span> | <span class="tag">長榮 BR166/165</span></p>
+    </div>
+    <div class="card" style="border-left-color: var(--yakiniku);">
+        <div class="section-title">🍴 札幌美食推薦</div>
+        <ul class="food-list">
+            <li><a href="https://www.google.com/maps/search/?api=1&query=だるま+本店" target="_blank">だるま 本店 <span class="tabelog-score">★ 3.74</span></a></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=湯咖哩+GARAKU" target="_blank">湯咖哩 GARAKU <span class="tabelog-score">★ 3.7+</span></a></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=根室花丸+札幌" target="_blank">根室花丸 迴轉壽司</a></li>
+        </ul>
+    </div>
 </div>
 
 <div class="footer">
     ❄️ 安全滑雪，快樂回味！<br>
-    Remember to check local weather before driving.
+    Remember to check weather before driving.
 </div>
+
+<script>
+    function showSection(id) {
+        document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+</script>
 
 </body>
 </html>
