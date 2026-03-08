@@ -11,7 +11,7 @@
             --text-main: #ffffff;
             --accent: #3498db;
             --highlight: #f1c40f;
-            --yakiniku: #e74c3c;
+            --flight-purple: #9b59b6;
         }
 
         body {
@@ -66,6 +66,7 @@
 
         .tag { font-size: 0.75rem; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 10px; font-weight: bold; margin-bottom: 10px; display: inline-block; }
         .important { color: var(--highlight); font-weight: bold; }
+        .time-label { opacity: 0.6; font-size: 0.85rem; width: 70px; display: inline-block; }
         
         .btn { 
             display: block; text-align: center; margin-top: 12px; padding: 14px; 
@@ -73,12 +74,11 @@
             background: rgba(255,255,255,0.08); border: 1px solid var(--glass-border);
         }
 
-        /* 列表與表格樣式 */
         .food-list { padding: 0; list-style: none; margin-top: 5px; }
-        .food-list li { margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; }
+        .food-list li { margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
         .food-list a { color: white; text-decoration: none; display: flex; justify-content: space-between; align-items: center; }
         .tabelog-score { color: #ff9900; font-weight: bold; font-size: 0.85rem; }
-        .food-desc { font-size: 0.75rem; opacity: 0.6; display: block; margin-top: 2px; }
+        .food-review { font-size: 0.75rem; opacity: 0.7; display: block; margin-top: 4px; font-style: italic; }
 
         table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 10px; }
         th { text-align: left; padding: 10px; border-bottom: 2px solid var(--glass-border); }
@@ -95,94 +95,98 @@
 </div>
 
 <div class="nav-grid">
-    <div class="nav-item active" onclick="showSection('weather')">🌦️<br>天氣路況</div>
-    <div class="nav-item" onclick="showSection('ski')">❄️<br>手稻雪場</div>
-    <div class="nav-item" onclick="showSection('car')">🚗<br>交通住宿</div>
+    <div class="nav-item active" onclick="showSection('flight')">✈️<br>航班交通</div>
+    <div class="nav-item" onclick="showSection('weather')">🌦️<br>天氣路況</div>
+    <div class="nav-item" onclick="showSection('ski')">❄️<br>滑雪專區</div>
     <div class="nav-item" onclick="showSection('food')">🍴<br>美食咖啡</div>
 </div>
 
-<div id="weather" class="content-section active">
-    <div class="card">
-        <div class="section-title">🌦️ 札幌手稻天氣狀況</div>
-        <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; margin-bottom: 10px;">
-            <p style="margin: 5px 0;">3/17 (二): <span class="important">雪 ❄️ (-2°C / -7°C)</span></p>
-            <p style="margin: 5px 0;">3/18 (三): <span class="important">多雲有時晴 ⛅ (4°C / -4°C)</span></p>
-        </div>
-        <a href="https://japan-skiguide.com/guide/htm/r0065twwe.htm" target="_blank" class="btn">📊 查看詳細預報 (SURF&SNOW)</a>
+<div id="flight" class="content-section active">
+    <div class="card" style="border-left-color: var(--flight-purple);">
+        <div class="section-title">✈️ 航班詳細資訊</div>
+        <p><span class="tag" style="background:var(--flight-purple); color:white;">組別 A (虎航)</span></p>
+        <p><span class="time-label">去程:</span> <b>IT260</b> (3/17 06:20) @ <b>T1</b></p>
+        <p><span class="time-label">回程:</span> <b>IT261</b> (3/21 12:10) @ 新千歲</p>
+        <hr style="border:0; border-top:1px solid var(--glass-border); margin:15px 0;">
+        <p><span class="tag" style="background:#27ae60; color:white;">組別 B (長榮)</span></p>
+        <p><span class="time-label">去程:</span> <b>BR166</b> (3/17 06:30) @ <b>T2</b></p>
+        <p><span class="time-label">回程:</span> <b>BR165</b> (3/22 12:10) @ 新千歲</p>
     </div>
     <div class="card">
-        <div class="section-title">🚦 JARTIC 道路情報</div>
-        <a href="https://www.jartic.or.jp/map/" target="_blank" class="btn" style="color:var(--highlight);">🚨 北海道即時路況圖</a>
+        <div class="section-title">🚗 租車 & 住宿</div>
+        <p><span class="time-label">租車:</span> Times (編號 202600487789)</p>
+        <p><span class="time-label">飯店:</span> 札幌花園皇宮酒店</p>
+    </div>
+</div>
+
+<div id="weather" class="content-section">
+    <div class="card">
+        <div class="section-title">🌦️ 即時預報</div>
+        <a href="https://japan-skiguide.com/guide/htm/r0065twwe.htm" target="_blank" class="btn">📊 手稻雪場一週預報</a>
+        <a href="https://www.jartic.or.jp/map/" target="_blank" class="btn">🚨 北海道即時路況</a>
     </div>
 </div>
 
 <div id="ski" class="content-section">
     <div class="card">
-        <div class="section-title">❄️ 滑雪專區</div>
-        <p>🎿 雪具租借: <span class="important">3/17 17:00</span> (INFINITY CITY)</p>
-        <p>⛷️ 滑雪教學: 3/18 - 3/20 (09:00 - 15:00)</p>
-        <a href="https://japan-skiguide.com/guide/htm/r0065twwe.htm" target="_blank" class="btn">🏔️ 雪場設施詳細介紹</a>
-        <a href="https://www.google.com/maps/search/?api=1&query=Sapporo+Teine" target="_blank" class="btn">📍 導航至札幌手稻滑雪場</a>
-    </div>
-</div>
-
-<div id="car" class="content-section">
-    <div class="card">
-        <div class="section-title">🚗 Times 租車</div>
-        <p>預約編號: <span class="important">202600487789</span></p>
-        <p>備註: 4WD + 雪胎 (新千歲機場店取車)</p>
-        <a href="https://www.google.com/maps/search/?api=1&query=Times+Car+Rental+New+Chitose+Airport" target="_blank" class="btn">📍 導覽至取車店面</a>
-    </div>
-    <div class="card">
-        <div class="section-title">🏨 住宿</div>
-        <p><b>札幌花園皇宮酒店</b></p>
-        <p>入住: 3/17 | 退房: 3/21</p>
-        <a href="https://www.google.com/maps/search/?api=1&query=Sapporo+Garden+Palace+Hotel" target="_blank" class="btn">📍 飯店地圖</a>
+        <div class="section-title">❄️ 滑雪安排</div>
+        <p>🎿 領取: 3/17 17:00 (INFINITY CITY)</p>
+        <p>⛷️ 教學: 3/18 - 3/20 (09:00 - 15:00)</p>
+        <a href="https://www.google.com/maps/search/?api=1&query=Sapporo+Teine" target="_blank" class="btn">📍 導航至雪場</a>
     </div>
 </div>
 
 <div id="food" class="content-section">
     <div class="card">
-        <div class="section-title">🍴 札幌美食 20 選</div>
-        <span class="tag">🐑 成吉思汗烤羊肉 / 🥩 燒肉</span>
+        <div class="section-title">🍴 札幌美食 20 選 (綜合評價)</div>
+        
+        <span class="tag">🐑 成吉思汗烤羊肉</span>
         <ul class="food-list">
-            <li><a href="https://www.google.com/maps/search/?api=1&query=だるま+本店" target="_blank"><span>だるま 本店</span> <span class="tabelog-score">★ 3.74</span></a></li>
-            <li><a href="https://www.google.com/maps/search/?api=1&query=だるま+5.5店" target="_blank"><span>だるま 5.5店</span></a></li>
-            <li><a href="https://www.google.com/maps/search/?api=1&query=グルマンズいとう" target="_blank"><span>Gurumans Ito</span> <span class="tabelog-score">★ 3.82</span></a></li>
-            <li><a href="https://www.google.com/maps/search/?api=1&query=旭川成吉思汗+大黑屋+札幌" target="_blank"><span>大黑屋</span></a></li>
-            <li><a href="https://www.google.com/maps/search/?api=1&query=燒肉+北牛" target="_blank"><span>燒肉 北牛</span></a></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=だるま+本店" target="_blank"><span>だるま 本店</span> <span class="tabelog-score">★ 3.74</span></a><span class="food-review">「雖然排很久，但秘傳醬汁與羊肉絕配」</span></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=だるま+5.5店" target="_blank"><span>だるま 5.5店</span></a><span class="food-review">「宵夜首選，環境乾淨且營業至深夜」</span></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=札幌成吉思汗+しろくま" target="_blank"><span>しろくま</span> <span class="tabelog-score">★ 3.7+</span></a><span class="food-review">「可以吃到北海道產純種羊肉，肉質極佳」</span></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=旭川成吉思汗+大黑屋+札幌" target="_blank"><span>大黑屋</span></a><span class="food-review">「肉塊厚實，CP 值在成吉思汗界數一數二」</span></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=生ラムジンギスカン+山小屋" target="_blank"><span>山小屋</span></a><span class="food-review">「氣氛溫馨，老闆非常親切」</span></li>
         </ul>
+
+        <span class="tag">🥩 精品燒肉</span>
+        <ul class="food-list">
+            <li><a href="https://www.google.com/maps/search/?api=1&query=グルマンズいとう" target="_blank"><span>Gurumans Ito</span> <span class="tabelog-score">★ 3.8+</span></a><span class="food-review">「預約困難店，牛舌與橫隔膜讓人驚艷」</span></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=燒肉+北牛" target="_blank"><span>燒肉 北牛</span></a><span class="food-review">「和牛油花極美，入口即化」</span></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=炭火燒肉+Razan+清田本店" target="_blank"><span>炭火燒肉 Razan</span></a><span class="food-review">「道地炭火香氣，肉品選擇非常豐富」</span></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=燒肉+世界" target="_blank"><span>燒肉 世界</span></a><span class="food-review">「單點和牛品質穩定，適合小酌」</span></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Steak+Wine+Ishizaki" target="_blank"><span>Ishizaki 鐵板燒</span></a><span class="food-review">「高級感十足，和牛與海鮮的極致平衡」</span></li>
+        </ul>
+
         <span class="tag">🍛 湯咖哩 / 🍣 海鮮 / 🍜 拉麵</span>
         <ul class="food-list">
-            <li><a href="https://www.google.com/maps/search/?api=1&query=湯咖哩+GARAKU" target="_blank"><span>GARAKU 湯咖哩</span> <span class="tabelog-score">★ 3.7+</span></a></li>
-            <li><a href="https://www.google.com/maps/search/?api=1&query=Suage+Plus+札幌" target="_blank"><span>Suage+</span></a></li>
-            <li><a href="https://www.google.com/maps/search/?api=1&query=根室花丸+迴轉壽司+札幌" target="_blank"><span>根室花丸 壽司</span></a></li>
-            <li><a href="https://www.google.com/maps/search/?api=1&query=拉麵+信玄+南6條店" target="_blank"><span>拉麵 信玄</span></a></li>
-            <li><a href="https://www.google.com/maps/search/?api=1&query=一幻拉麵+新千歲機場" target="_blank"><span>一幻拉麵</span></a></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=湯咖哩+GARAKU" target="_blank"><span>GARAKU</span> <span class="tabelog-score">★ 3.7+</span></a><span class="food-review">「湯頭香料層次豐富，炸雞腿是靈魂」</span></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=Suage+Plus+札幌" target="_blank"><span>Suage+</span></a><span class="food-review">「串炸蔬菜口感極佳，湯頭清爽不膩」</span></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=奧芝商店+札幌" target="_blank"><span>奧芝商店</span></a><span class="food-review">「必點蝦湯底，滿滿海味」</span></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=根室花丸+迴轉壽司+札幌" target="_blank"><span>根室花丸</span></a><span class="food-review">「必抽號碼牌，產地直送的新鮮感」</span></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=二條市場+大磯" target="_blank"><span>二條市場 大磯</span></a><span class="food-review">「海鮮丼份量紮實，海膽鮮甜」</span></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=函館海膽+村上+札幌" target="_blank"><span>海膽 村上</span></a><span class="food-review">「完全無明礬苦味，只有純淨鮮甜」</span></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=串鳥+札幌本店" target="_blank"><span>串鳥</span></a><span class="food-review">「在地人的廚房，價格超親民的串燒」</span></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=拉麵+信玄+南6條店" target="_blank"><span>拉麵 信玄</span></a><span class="food-review">「濃厚味噌湯頭，配上炒飯是完美套餐」</span></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=一幻拉麵+新千歲機場" target="_blank"><span>一幻拉麵</span></a><span class="food-review">「鮮蝦味濃郁到爆，麵條很有彈性」</span></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=夜パフェ専門店+ななかま堂" target="_blank"><span>聖代 ななかま堂</span></a><span class="food-review">「視覺與味覺的藝術品，餐後完美收尾」</span></li>
         </ul>
-        <p style="font-size: 0.8rem; text-align: center; opacity: 0.6;">(其餘名單請參考詳細攻略...)</p>
     </div>
 
     <div class="card">
-        <div class="section-title">☕ 推薦咖啡廳 (Top 10)</div>
+        <div class="section-title">☕ 推薦咖啡廳 (10 選)</div>
         <div style="overflow-x: auto;">
             <table>
                 <thead>
-                    <tr><th>類別 / 店名</th><th>特色</th><th style="text-align:right;">地圖</th></tr>
+                    <tr><th>店名 (周邊/名店)</th><th>特色推薦</th><th style="text-align:right;">地圖</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td><b>六花亭 札幌本店</b></td><td>住宿周邊/必吃</td><td style="text-align:right;"><a href="https://www.google.com/maps/search/?api=1&query=だるま+5.5店8" target="_blank">📍</a></td></tr>
-                    <tr><td><b>Baristart Coffee</b></td><td>鮮乳拿鐵首選</td><td style="text-align:right;"><a href="https://www.google.com/maps/search/?api=1&query=だるま+5.5店7" target="_blank">📍</a></td></tr>
-                    <tr><td><b>Akarenga Terrace</b></td><td>紅磚建築美景</td><td style="text-align:right;"><a href="google.com/maps/search/?api=1&query=" target="_blank">📍</a></td></tr>
-                    <tr><td><b>Ishiya Café</b></td><td>白色戀人鬆餅</td><td style="text-align:right;"><a href="https://www.google.com/maps/search/?api=1&query=だるま+5.5店6" target="_blank">📍</a></td></tr>
-                    <tr><td><b>丸美珈琲店</b></td><td>職人手沖</td><td style="text-align:right;"><a href="https://www.google.com/maps/search/?api=1&query=だるま+5.5店9" target="_blank">📍</a></td></tr>
-                    <tr><td><b>森彥 Morihiko</b></td><td>老宅氛圍 (名店)</td><td style="text-align:right;"><a href="https://www.google.com/maps/search/?api=1&query=札幌成吉思汗+しろくま0" target="_blank">📍</a></td></tr>
-                    <tr><td><b>宮越屋珈琲</b></td><td>經典深焙</td><td style="text-align:right;"><a href="https://www.google.com/maps/search/?api=1&query=札幌成吉思汗+しろくま1" target="_blank">📍</a></td></tr>
-                    <tr><td><b>Sato Coffee</b></td><td>極簡工業風</td><td style="text-align:right;"><a href="https://www.google.com/maps/search/?api=1&query=札幌成吉思汗+しろくま2" target="_blank">📍</a></td></tr>
-                    <tr><td><b>RITARU COFFEE</b></td><td>絕美薰製咖啡</td><td style="text-align:right;"><a href="https://www.google.com/maps/search/?api=1&query=札幌成吉思汗+しろくま3" target="_blank">📍</a></td></tr>
-                    <tr><td><b>札幌珈琲館</b></td><td>大正復古風</td><td style="text-align:right;"><a href="https://www.google.com/maps/search/?api=1&query=札幌成吉思汗+しろくま4" target="_blank">📍</a></td></tr>
+                    <tr><td><b>六花亭 本店</b></td><td>必吃限定甜點</td><td style="text-align:right;"><a href="https://www.google.com/maps/search/?api=1&query=だるま+5.5店8" target="_blank">📍</a></td></tr>
+                    <tr><td><b>Baristart</b></td><td>頂級鮮乳拿鐵</td><td style="text-align:right;"><a href="https://www.google.com/maps/search/?api=1&query=だるま+5.5店7" target="_blank">📍</a></td></tr>
+                    <tr><td><b>森彥 Morihiko</b></td><td>古民家老宅氛圍</td><td style="text-align:right;"><a href="https://www.google.com/maps/search/?api=1&query=札幌成吉思汗+しろくま0" target="_blank">📍</a></td></tr>
                 </tbody>
             </table>
+            <p style="text-align:center; font-size:0.7rem; opacity:0.5; margin-top:10px;">(其餘名單請於表格內滾動查看...)</p>
         </div>
     </div>
 </div>
