@@ -6,18 +6,17 @@
     <title>Hokkaido Ski 2026 - 札幌手稻滑雪戰報</title>
     <style>
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.15); /* 深邃毛玻璃基底 */
-            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-bg: rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.18);
             --text-main: #ffffff;
             --accent: #3498db;
             --ski-green: #2ecc71;
-            --yakiniku: #e74c3c;
+            --highlight: #f1c40f;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            /* 背景圖：深邃雪山 */
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1486496146582-9ffcd0b2b2b7?auto=format&fit=crop&w=1920&q=80');
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1486496146582-9ffcd0b2b2b7?auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
@@ -27,40 +26,29 @@
             min-height: 100vh;
         }
 
-        .header {
-            text-align: center;
-            padding: 40px 20px;
-            margin-bottom: 25px;
-        }
+        .header { text-align: center; padding: 40px 20px; }
+        .header h1 { margin: 0; font-size: 1.8rem; letter-spacing: 3px; font-weight: 700; }
+        .header p { opacity: 0.7; font-weight: 300; font-size: 0.9rem; margin-top: 8px; }
 
-        .header h1 { margin: 0; font-size: 2rem; letter-spacing: 2px; }
-        .header p { opacity: 0.8; font-weight: 300; margin-top: 10px; }
-
-        /* 導覽方框：毛玻璃效果 */
-        .nav-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 25px; }
+        /* 導覽方框 */
+        .nav-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 25px; }
         .nav-item { 
             background: var(--glass-bg);
-            backdrop-filter: blur(15px); /* 毛玻璃核心效果 */
-            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
             border: 1px solid var(--glass-border);
-            padding: 20px;
+            padding: 18px;
             border-radius: 20px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            color: white;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
         }
-        .nav-item.active {
-            background: rgba(255, 255, 255, 0.25);
-            border-color: var(--accent);
-            transform: translateY(-5px);
-        }
+        .nav-item.active { background: rgba(255, 255, 255, 0.22); border-color: var(--accent); transform: translateY(-3px); }
 
-        /* 內容區塊 */
-        .content-section { display: none; animation: fadeIn 0.5s ease forwards; }
+        /* 內容顯示控制 */
+        .content-section { display: none; animation: fadeIn 0.4s ease-out; }
         .content-section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .card { 
             background: var(--glass-bg);
@@ -68,111 +56,108 @@
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border);
             border-radius: 24px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            padding: 22px;
+            margin-bottom: 18px;
         }
 
         .section-title { 
-            font-size: 1.2rem; font-weight: bold; margin-bottom: 20px; 
-            display: flex; align-items: center; gap: 10px;
-            border-bottom: 1px solid var(--glass-border); padding-bottom: 10px;
+            font-size: 1.1rem; font-weight: bold; margin-bottom: 15px; 
+            border-bottom: 1px solid var(--glass-border); padding-bottom: 8px;
+            display: flex; align-items: center; gap: 8px;
         }
 
-        /* 文字與元件 */
-        .tag { font-size: 0.75rem; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 10px; font-weight: bold; }
-        .important { color: #f1c40f; font-weight: bold; }
-        .time-label { opacity: 0.7; font-size: 0.9rem; width: 75px; display: inline-block; }
+        .important { color: var(--highlight); font-weight: bold; }
+        .time-label { opacity: 0.6; font-size: 0.85rem; width: 70px; display: inline-block; }
         
         .btn { 
-            display: block; text-align: center; margin-top: 15px; padding: 14px; 
+            display: block; text-align: center; margin-top: 12px; padding: 14px; 
             border-radius: 15px; text-decoration: none; font-weight: bold; color: white;
-            background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border);
-            transition: 0.3s;
+            background: rgba(255,255,255,0.08); border: 1px solid var(--glass-border);
         }
-        .btn:hover { background: var(--accent); border-color: transparent; }
+        .btn:hover { background: var(--accent); }
 
         .food-list { padding: 0; list-style: none; }
-        .food-list li { 
-            margin-bottom: 12px; padding: 12px; border-radius: 15px;
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-        }
-        .food-list a { color: white; text-decoration: none; display: block; width: 100%; }
-        .tabelog-score { float: right; color: #ff9900; font-weight: bold; }
+        .food-list li { margin-bottom: 10px; padding: 12px; border-radius: 15px; background: rgba(255,255,255,0.05); }
+        .food-list a { color: white; text-decoration: none; display: block; }
+        .tabelog-score { float: right; color: #ff9900; }
 
-        .footer { text-align: center; font-size: 0.8rem; opacity: 0.6; padding: 40px; }
+        .footer { text-align: center; font-size: 0.75rem; opacity: 0.5; padding: 30px; }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <h1>⛷️ HOKKAIDO 2026</h1>
-    <p>3/17 - 3/22 | 札幌手稻滑雪戰報</p>
+    <h1>HOKKAIDO 2026</h1>
+    <p>3/17 - 3/22 | 札幌手稻滑雪行</p>
 </div>
 
 <div class="nav-grid">
     <div class="nav-item active" onclick="showSection('weather')">🌦️<br>天氣路況</div>
-    <div class="nav-item" onclick="showSection('ski')">❄️<br>滑雪專區</div>
+    <div class="nav-item" onclick="showSection('ski')">❄️<br>手稻雪場</div>
     <div class="nav-item" onclick="showSection('car')">🚗<br>交通住宿</div>
-    <div class="nav-item" onclick="showSection('food')">🍴<br>美食導覽</div>
+    <div class="nav-item" onclick="showSection('food')">🍴<br>在地美食</div>
 </div>
 
 <div id="weather" class="content-section active">
     <div class="card">
-        <div class="section-title">🌦️ 即時氣象預報</div>
-        <a href="https://weathernews.jp/onebox/tenki/hokkaido/01100/" target="_blank" class="btn">📍 札幌市區天氣</a>
-        <a href="https://weathernews.jp/ski/spot/31005/" target="_blank" class="btn">⛷️ 札幌手稻滑雪場</a>
+        <div class="section-title">🌦️ 札幌手稻天氣狀況</div>
+        <p style="font-size: 0.9rem;">根據 Japan Ski Guide 即時預報：</p>
+        <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; margin-bottom: 10px;">
+            <p style="margin: 5px 0;">今日 (3/8): <span class="important">雪 ❄️ (-1°C / -4°C)</span></p>
+            <p style="margin: 5px 0;">明日 (3/9): <span class="important">雪 ❄️ (-2°C / -6°C)</span></p>
+            <p style="margin: 5px 0;">後日 (3/10): <span class="important">雪 ❄️ (-2°C / -7°C)</span></p>
+        </div>
+        <a href="https://japan-skiguide.com/guide/htm/r0065twwe.htm" target="_blank" class="btn">📊 查看一週詳細預報 (SURF&SNOW)</a>
     </div>
     <div class="card">
-        <div class="section-title">🚦 JARTIC 道路情報</div>
-        <p style="font-size: 0.9rem; opacity: 0.8;">自駕請確認即時路況與積雪封閉資訊：</p>
-        <a href="https://www.jartic.or.jp/map/" target="_blank" class="btn" style="color:#f1c40f;">🚨 開啟 JARTIC 交通地圖</a>
+        <div class="section-title">🚦 道路交通情報</div>
+        <a href="https://www.jartic.or.jp/map/" target="_blank" class="btn" style="color:var(--highlight);">🚨 JARTIC 北海道即時路況</a>
     </div>
 </div>
 
 <div id="ski" class="content-section">
     <div class="card">
-        <div class="section-title">❄️ 滑雪安排</div>
+        <div class="section-title">❄️ 札幌手稻滑雪場</div>
         <p><b>🎿 雪具租借：INFINITY CITY</b></p>
-        <p><span class="time-label">領取:</span> <span class="important">3/17 17:00</span></p>
-        <p><span class="time-label">歸還:</span> 3/20 17:00</p>
-        <hr style="border:0; border-top:1px solid var(--glass-border); margin:20px 0;">
-        <p><b>⛷️ 滑雪教學：札幌手稻 (JWA)</b></p>
-        <p><span class="time-label">日期:</span> 3/18 - 3/20</p>
-        <a href="https://www.google.com/maps/search/?api=1&query=Sapporo+Teine" target="_blank" class="btn">📍 導航至雪場</a>
+        <p><span class="time-label">領取時間:</span> <span class="important">3/17 17:00</span> [cite: 27]</p>
+        <p><span class="time-label">歸還時間:</span> 3/20 17:00 [cite: 27]</p>
+        <hr style="border:0; border-top:1px solid var(--glass-border); margin:15px 0;">
+        <p><b>⛷️ 滑雪教學 (JWA)</b></p>
+        <p><span class="time-label">課程日期:</span> 3/18 - 3/20 [cite: 27]</p>
+        <p><span class="time-label">教學時段:</span> 09:00 - 15:00 [cite: 27]</p>
+        <a href="https://japan-skiguide.com/guide/htm/r0065twwe.htm" target="_blank" class="btn">🏔️ 雪場設施與亮點介紹</a>
     </div>
 </div>
 
 <div id="car" class="content-section">
     <div class="card">
         <div class="section-title">🚗 Times 租車</div>
-        <p><span class="time-label">預約號:</span> <span class="important">202600487789</span> </p>
-        <p><span class="time-label">車型:</span> 4WD + 雪胎 </p>
-        <a href="https://www.google.com/maps/search/?api=1&query=Times+Car+Rental+New+Chitose+Airport" target="_blank" class="btn">📍 前往取車店面</a>
+        <p><span class="time-label">預約編號:</span> <span class="important">202600487789</span> [cite: 26]</p>
+        <p><span class="time-label">取車地點:</span> 新千歲機場店鋪 [cite: 26]</p>
+        <p>✅ 4WD + 雪胎 [cite: 26]</p>
+        <a href="https://www.google.com/maps/search/?api=1&query=Times+Car+Rental+New+Chitose+Airport" target="_blank" class="btn">📍 導航至取車處</a>
     </div>
     <div class="card">
         <div class="section-title">🏨 住宿</div>
-        <p><b>札幌花園皇宮酒店</b></p>
-        <p><span class="time-label">入住:</span> 3/17 15:00</p>
+        <p><b>札幌花園皇宮酒店</b> [cite: 27]</p>
+        <p><span class="time-label">入住日期:</span> 3/17 [cite: 27]</p>
         <a href="https://www.google.com/maps/search/?api=1&query=Sapporo+Garden+Palace+Hotel" target="_blank" class="btn">📍 前往飯店地圖</a>
     </div>
 </div>
 
 <div id="food" class="content-section">
     <div class="card">
-        <div class="section-title">🍴 札幌精選美食</div>
+        <div class="section-title">🍴 札幌必吃美食</div>
         <ul class="food-list">
-            <li><a href="https://www.google.com/maps/search/?api=1&query=成吉思汗だるま本店" target="_blank">だるま 本店 <span class="tabelog-score">★ 3.74</span></a></li>
-            <li><a href="https://www.google.com/maps/search/?api=1&query=湯咖哩GARAKU" target="_blank">湯咖哩 GARAKU <span class="tabelog-score">★ 3.7+</span></a></li>
-            <li><a href="https://www.google.com/maps/search/?api=1&query=根室花丸札幌" target="_blank">根室花丸 迴轉壽司</a></li>
-            <li><a href="https://www.google.com/maps/search/?api=1&query=旭川成吉思汗大黑屋札幌" target="_blank">旭川成吉思汗 大黑屋</a></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=成吉思汗だるま本店" target="_blank">だるま 本店 <span class="tabelog-score">★ 3.74</span> [cite: 28]</a></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=湯咖哩GARAKU" target="_blank">湯咖哩 GARAKU <span class="tabelog-score">★ 3.7+</span> [cite: 30]</a></li>
+            <li><a href="https://www.google.com/maps/search/?api=1&query=根室花丸札幌" target="_blank">根室花丸 迴轉壽司 [cite: 30]</a></li>
         </ul>
     </div>
 </div>
 
 <div class="footer">
-    ❄️ 安全滑雪，快樂回味！<br>
-    © 2026 Hokkaido Ski Trip
+    © 2026 Hokkaido Ski Trip | 安全滑雪，快樂回味！
 </div>
 
 <script>
